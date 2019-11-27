@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<style type="text/css">
+	td {
+		text-align: center;
+		height: 50px;
+		border-bottom: 1px solid gray;
+	}
+
+	a {
+		padding: 5px 10px;
+		background: red;
+		color: #fff;
+		font-weight: bold;
+		border-radius: 5px;
+		text-align: center;
+	}
+
+	tr:last-child td {
+		border: none;
+	}
+
+	.shop {
+		width: 200px;
+		height: 300px;
+		background: rgb(207, 192, 192);
+		margin-left: 10px;margin-top: 10px;
+	}
+
+	.shop img {
+		width: 200px;
+		height: 150px;
+	}
+
+	.shop p {
+		height: 13px;
+		
+	}
+
+	.shop p span {
+		font-size: 13px;
+	}
+</style>
+
+<body>
+	<table cellspacing="0" cellpadding="0">
+		<tr>
+			<td width="150px">产品编号</td>
+			<td width="150px">产品名字</td>
+			<td width="300px">产品数量</td>
+			<td width="150px">单价</td>
+			<td width="150px">总价</td>
+
+		</tr>
+		<tr>
+			<td width="150px">31</td>
+			<td width="150px">iphhone</td>
+			<td width="300px">
+				<button>-</button>
+				<input type="text" value="0">
+				<button>+</button>
+			</td>
+			<td width="150px">$4000</td>
+			<td width="150px">0</td>
+			<td width="150px"><a class="a">移除</a></td>
+		</tr>
+		<tr>
+			<td width="150px">52</td>
+			<td width="150px">NOKIA</td>
+			<td width="300px">
+				<button>-</button>
+				<input type="text" value="0">
+				<button>+</button>
+			</td>
+			<td width="150px">$2000</td>
+			<td width="150px">0</td>
+			<td width="150px"><a class="a">移除</a></td>
+		</tr>
+		<tr>
+			<td width="150px">77</td>
+			<td width="150px">Samng</td>
+			<td width="300px">
+				<button>-</button>
+				<input type="text" value="0">
+				<button>+</button>
+			</td>
+			<td width="150px">$1000</td>
+			<td width="150px">0</td>
+			<td width="150px"><a class="a">移除</a></td>
+		</tr>
+		<tr>
+			<td width="150px">23</td>
+			<td width="150px">qq</td>
+			<td width="300px">
+				<button>-</button>
+				<input type="text" value="0">
+				<button>+</button>
+			</td>
+			<td width="150px">$3000</td>
+			<td width="150px">0</td>
+			<td width="0px"><a class="a">移除</a></td>
+		</tr>
+		<tr>
+			<td width="150px">总购买价</td>
+			<td width="150px">0</td>
+			<td width="300px"></td>
+			<td width="150px"></td>
+			<td width="0px"><a id="qingchu">清空购物车</a></td>
+			<td width="150px"></td>
+		</tr>
+	</table>
+<div>
+	<input type="text" placeholder="请输入搜索内容">
+	<button id="sosuo">搜索</button>
+</div>
+	<div style="width: 100%;display: flex;flex-wrap: wrap;" id="box">
+		<div class="shop">
+			<img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1750858760,3568252124&fm=26&gp=0.jpg"
+				alt="">
+			<p><span>商品名称：</span><span>韩信</span></p>
+			<p><span>价格：</span><span>120</span></p>
+			<p><span>产品编号：</span><span>1</span></p>
+			<button id="goin">加入购物车</button>
+		</div>
+		<div class="shop">
+			<img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3288424379,3074374639&fm=11&gp=0.jpg"
+				alt="">
+			<p><span>商品名称：</span><span>李白</span></p>
+			<p><span>价格：</span><span>320</span></p>
+			<p><span>产品编号：</span><span>2</span></p>
+			<button id="goin">加入购物车</button>
+		</div>
+		<div class="shop">
+			<img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4168801703,1626136035&fm=26&gp=0.jpg"
+				alt="">
+			<p><span>商品名称：</span><span>杨玉环</span></p>
+			<p><span>价格：</span><span>20</span></p>
+			<p><span>产品编号：</span><span>3</span></p>
+			<button id="goin">加入购物车</button>
+		</div>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+$('#sosuo').on('click',function(){
+	var soval=$(this).prev().val().trim();
+	$('tr:not(:first):not(:last)').each(function () {
+		let a=$(this).find('td:eq(1)').text()//1
+		// $(this).hide().filter(":contains("+ soval +")").show();//2
+		
+
+			if(soval==a){//1
+				$(this).css({fontSize:"18px",color:"red",fontWeight:"800"})
+				$(this).show()
+			}else if(soval!=''){
+				$(this).css({fontSize:"",color:"",fontWeight:""})
+				$(this).hide()
+			}else{
+				$(this).css({fontSize:"",color:"",fontWeight:""})
+				$(this).show()
+			}
+			// console.log($(this).find('td:eq(1)').text())
+	})
+	
+})
+	$('#box').on('click', function (event) {
+		var target = event.target;
+		console.log(event)
+		if($(target).text() == "加入购物车"){
+		$('tr:last').before(`<tr>
+			<td width="150px">`+ $(target).prev().children().last().text() + `</td>
+			<td width="150px">`+ $(target).prev().prev().prev().children().last().text() + `</td>
+			<td width="300px">
+				<button>-</button>
+				<input type="text" value="1">
+				<button>+</button>
+			</td>
+			<td width="150px">$`+ $(target).prev().prev().children().last().text() + `</td>
+			<td width="150px">`+ $(target).prev().prev().children().last().text() + `</td>
+			<td width="0px"><a class="a">移除</a></td>
+		</tr>`)
+
+		allmoney()
+	}
+	})
+
+	$('table').on("click", function (event) {
+
+		var target = event.target;
+		// target.parent()
+		if ($(target).text() == "+") {
+			var num = $(target).prev().val();
+			num++;
+			$(target).prev().val(num);
+			total($(target));
+			allmoney();
+			console.log($(target).prev().val())
+		} else if ($(target).text() == "-") {
+			var num = $(target).next().val();
+			num--;
+			if (num < 0) {
+				num = 0;
+				if (confirm("已经是0件了你确定要删除这件商品吗") == true) {
+					$(target).parent().parent().remove();
+				}
+			}
+			$(target).next().val(num);
+			total($(target));
+			allmoney();
+		} else if ($(target).text() == "移除"&&$(target).children().length==0) {
+			console.log($(target).children().length)
+			let a = $(target).parent().prev().text();//当前商品的总价
+			let b = $('tr:last').children().first().next().text();//购物车的总价
+			$('tr:last').children().first().next().text(b - a);
+			$(target).parent().parent().remove();
+		}
+
+		
+		console.log($(target).text())
+	})
+
+	// $('tr:gt(0)').each(function () {
+	// 	var jian = $(this).find('td:eq(2)').children().first()
+	// 	var jia = $(this).find('td:eq(2)').children().last()
+	// 	//			减点击事件
+	// 	jian.on('click',function () {
+	// 		var num = $(this).next().val();
+	// 		num--;
+	// 		if (num < 0) {
+	// 			num = 0;
+	// 			if (confirm("已经是0件了你确定要删除这件商品吗") == true) {
+	// 				$(this).parent().parent().remove();
+	// 			}
+	// 		}
+	// 		$(this).next().val(num);
+	// 		total($(this));
+	// 		allmoney();
+	// 	})
+	// 	//加点击事件
+	// 	jia.on('click',function () {
+	// 		var num = $(this).prev().val();
+	// 		num++;
+	// 		$(this).prev().val(num);
+	// 		total($(this));
+	// 		allmoney();
+	// 	})
+	// })
+	//商品单个总价
+	function total(o) {
+		var n = o.parent().children().first().next().val();
+		var money = Number(o.parent().next().text().substr(1));
+		o.parent().next().next().text(n * money);
+	}
+	//总购买价 
+	function allmoney() {
+		var num = 0;
+		$('tr:not(:first):not(:last)').each(function () {
+			num += Number($(this).find('td:eq(4)').text());
+		})
+		$('tr:last').children().first().next().text(num);
+	}
+	//删除
+	// $('.a').click(function () {
+	// 	let a = $(this).parent().prev().text();//当前商品的总价
+	// 	let b = $('tr:last').children().first().next().text();//购物车的总价
+	// 	$('tr:last').children().first().next().text(b - a);
+	// 	$(this).parent().parent().remove();
+	// })
+	//清除购物车
+	$('#qingchu').click(function () {
+		$('tr:not(:first):not(:last)').remove();
+		$('tr:last').children().first().next().text('0');
+	})
+</script>
+
+</html>
