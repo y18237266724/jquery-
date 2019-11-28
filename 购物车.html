@@ -29,7 +29,8 @@
 		width: 200px;
 		height: 300px;
 		background: rgb(207, 192, 192);
-		margin-left: 10px;margin-top: 10px;
+		margin-left: 10px;
+		margin-top: 10px;
 	}
 
 	.shop img {
@@ -39,7 +40,7 @@
 
 	.shop p {
 		height: 13px;
-		
+
 	}
 
 	.shop p span {
@@ -114,10 +115,18 @@
 			<td width="150px"></td>
 		</tr>
 	</table>
-<div>
-	<input type="text" placeholder="请输入搜索内容">
-	<button id="sosuo">搜索</button>
-</div>
+	<div>
+		<input type="text" placeholder="请输入搜索内容">
+		<button id="sosuo">搜索</button>
+	</div>
+	<div>
+		<p>新增商品：</p>
+		<div>
+			商品名称：<input type="text" placeholder="请输入商品名称" id="s"> 商品价格：<input type="text" placeholder="请输入商品价格" id="j">
+			商品照片：<input type="text" placeholder="请输入网络图片路径" id="z"> 产品编号：<input type="text" placeholder="请输入产品编号" id="b">
+			<button id="oknow">确认添加</button>
+		</div>
+	</div>
 	<div style="width: 100%;display: flex;flex-wrap: wrap;" id="box">
 		<div class="shop">
 			<img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1750858760,3568252124&fm=26&gp=0.jpg"
@@ -147,32 +156,58 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-$('#sosuo').on('click',function(){
-	var soval=$(this).prev().val().trim();
-	$('tr:not(:first):not(:last)').each(function () {
-		let a=$(this).find('td:eq(1)').text()//1
-		// $(this).hide().filter(":contains("+ soval +")").show();//2
+	$('#oknow').on('click',function(){
+		//添加商品事件
+		let s=$('#s').val();//商品名称
+		let j=$('#j').val();//价格
+		let z=$('#z').val();//照片
+		let b=$('#b').val();//编号
+		if(s!=''&&j!=''&&z!=''&&b!=''){
+			$('#box').append(`
+		<div class="shop">
+			<img src="`+z+`"
+				alt="">
+			<p><span>商品名称：</span><span>`+s+`</span></p>
+			<p><span>价格：</span><span>`+j+`</span></p>
+			<p><span>产品编号：</span><span>`+b+`</span></p>
+			<button id="goin">加入购物车</button>
+		</div>
+		`)
+		$('#s').val('');//商品名称
+		$('#j').val('');//价格
+		$('#z').val('');//照片
+		$('#b').val('');//编号
+		}else{
+			confirm('请填写完整商品信息！！！')
+		}
 		
-
-			if(soval==a){//1
-				$(this).css({fontSize:"18px",color:"red",fontWeight:"800"})
+	})
+	$('#sosuo').on('click', function () {
+		//搜索事件
+		var soval = $(this).prev().val().trim();
+		$('tr:not(:first):not(:last)').each(function () {
+			let a = $(this).find('td:eq(1)').text()//1
+			// $(this).hide().filter(":contains("+ soval +")").show();//2
+			if (soval == a) {//1
+				$(this).css({ fontSize: "18px", color: "red", fontWeight: "800" })
 				$(this).show()
-			}else if(soval!=''){
-				$(this).css({fontSize:"",color:"",fontWeight:""})
+			} else if (soval != '') {
+				$(this).css({ fontSize: "", color: "", fontWeight: "" })
 				$(this).hide()
-			}else{
-				$(this).css({fontSize:"",color:"",fontWeight:""})
+			} else {
+				$(this).css({ fontSize: "", color: "", fontWeight: "" })
 				$(this).show()
 			}
 			// console.log($(this).find('td:eq(1)').text())
+		})
+
 	})
-	
-})
 	$('#box').on('click', function (event) {
+		//加入购物车事件
 		var target = event.target;
 		console.log(event)
-		if($(target).text() == "加入购物车"){
-		$('tr:last').before(`<tr>
+		if ($(target).text() == "加入购物车") {
+			$('tr:last').before(`<tr>
 			<td width="150px">`+ $(target).prev().children().last().text() + `</td>
 			<td width="150px">`+ $(target).prev().prev().prev().children().last().text() + `</td>
 			<td width="300px">
@@ -185,12 +220,12 @@ $('#sosuo').on('click',function(){
 			<td width="0px"><a class="a">移除</a></td>
 		</tr>`)
 
-		allmoney()
-	}
+			allmoney()
+		}
 	})
 
 	$('table').on("click", function (event) {
-
+		//加减事件
 		var target = event.target;
 		// target.parent()
 		if ($(target).text() == "+") {
@@ -212,7 +247,7 @@ $('#sosuo').on('click',function(){
 			$(target).next().val(num);
 			total($(target));
 			allmoney();
-		} else if ($(target).text() == "移除"&&$(target).children().length==0) {
+		} else if ($(target).text() == "移除" && $(target).children().length == 0) {
 			console.log($(target).children().length)
 			let a = $(target).parent().prev().text();//当前商品的总价
 			let b = $('tr:last').children().first().next().text();//购物车的总价
@@ -220,7 +255,7 @@ $('#sosuo').on('click',function(){
 			$(target).parent().parent().remove();
 		}
 
-		
+
 		console.log($(target).text())
 	})
 
